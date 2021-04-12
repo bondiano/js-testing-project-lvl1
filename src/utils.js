@@ -1,24 +1,24 @@
 // @ts-check
-
 import path from 'path';
+import _ from 'lodash';
 
 /**
- * @param {String} link url without protocol
- * @param {String} [defaultFormat]
- *
- * @example
- * urlToFilename('ru.hexlet.io/courses')
- * // returns ru-hexlet-io-courses.html
- * @example
- * urlToFilename('ru.hexlet.io/image.png')
- * // returns ru-hexlet-io-image.png
- *
+ * @param {String} url without protocol
  * @returns {String} filename with replaced all symblies expect string and digits to "-"
+ *
+ * urlToFilename('ru.hexlet.io/image.png')
+ * // ru-hexlet-io-image.png
+ *
  */
-export const urlToFilename = (link, defaultFormat = '.html') => {
-  const { dir, name, ext } = path.parse(link);
-  const filename = path.join(dir, name).replace(/[^A-Za-z0-9_]/gi, '-');
-  const format = ext || defaultFormat;
+export const assetsUrlToFilename = (url) => {
+  const { dir, name, ext } = path.parse(url);
+  const filename = path.join(dir, name).replace(/\W/g, '-');
 
-  return `${filename}${format}`;
+  return `${filename}${ext || '.html'}`;
+};
+
+export const htmlUrlToFilename = (link) => {
+  const filename = _.trimEnd(link, '/').replace(/\W/g, '-');
+
+  return filename;
 };
