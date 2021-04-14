@@ -52,18 +52,17 @@ describe('positive cases', () => {
 
     const content = await readFile(tmpDirPath, pageFileName);
     expect(content).toBe(expectedPageContent.trim());
+  });
 
-    const resourcesCases = resources.map(async (resource) => {
-      const { filePath, data } = resourceContents.find((info) => info.filename === resource);
+  test.each(resources)('load %s resource', async (resource) => {
+    await download(BASE_URL, tmpDirPath);
+    const { filePath, data } = resourceContents.find((info) => info.filename === resource);
 
-      await expect(fsp.access(path.join(tmpDirPath, filePath)))
-        .resolves.not.toThrow();
+    await expect(fsp.access(path.join(tmpDirPath, filePath)))
+      .resolves.not.toThrow();
 
-      const resourceContent = await readFile(tmpDirPath, filePath);
-      expect(resourceContent).toBe(data);
-    });
-
-    await Promise.all(resourcesCases);
+    const resourceContent = await readFile(tmpDirPath, filePath);
+    expect(resourceContent).toBe(data);
   });
 });
 

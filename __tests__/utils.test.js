@@ -8,6 +8,7 @@ const assetsCases = [
 const pageCases = [
   ['vk.com', 'vk-com'],
   ['vk.com/', 'vk-com'],
+  ['www.vk.com', 'www-vk-com'],
   ['ru.hexlet.io/', 'ru-hexlet-io'],
 ];
 

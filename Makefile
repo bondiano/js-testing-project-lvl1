@@ -3,6 +3,7 @@ setup:
 
 install:
 	npm ci
+	npm link
 
 run:
 	rm -rf temp
